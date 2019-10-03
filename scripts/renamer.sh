@@ -1,0 +1,5 @@
+#! /bin/sh
+for f in *.txt;
+do
+mv -- "$f" "$(basename -- "$f" .txt).text"
+done
