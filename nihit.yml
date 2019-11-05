@@ -1,0 +1,21 @@
+---
+  - hosts: localhost
+    name: Configring Nginx
+    become: yes
+    tasks:
+            - name: apt update
+              apt:
+                      update_cache: yes
+            - name: install nginx
+              apt:
+                      name: nginx
+                      state: latest
+            - name: copy nginx file
+              copy:
+                      src: /home/ubuntu/index.html
+                      dest: /var/www/html/index.html
+                      mode: '0644'
+            - debug:
+                    msg: System ip is {{ ansible_default_ipv4.address }}
+
+

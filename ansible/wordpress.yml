@@ -1,0 +1,65 @@
+---
+  - hosts: myServers
+    name: Setting up Wordpress
+    become: yes
+    tasks:
+      - name: System Update
+        apt:
+          update_cache: yes
+      - name: System Upgrade
+        apt: 
+          name: "*"
+          state: latest
+      - name: Apache 2
+        apt: 
+          name: apache2
+          state: present
+      - name: Enable Apache2 at startup
+        service: 
+          name: apache2
+          state: started
+          enabled: yes
+      - name: Install PHP
+        apt:
+          update_cache: yes
+          name: "{{ item }}"
+          state: latest
+        with_items:
+          - php 
+          - php-curl
+          - php-gd
+          - php-mbstring
+          - php-xml
+          - php-xmlrpc
+          - php-soap
+          - php-intl
+          - php-zip
+          - mysql-server
+      - name: Setup MySQL
+        login_user: root
+        login_password: somewordpress
+        mysql_db:
+          name: wordpress
+          state: present
+        mysql_user:
+          name: wordpress
+          password: wordpress
+          priv: 'wordpress.*:ALL,GRANT'
+          state: present
+      - name: downloading Wordpress
+        get_url:
+          url: http://wordpress.org/latest.zip
+          dest: /var/www/html
+      - name: unzipping into /var/www/html
+        unarchive:
+          src: /var/www/html/latest.zip
+          dest: /var/www/html/
+      - name: changing ownership of wordpress dir
+        file:
+          path: /var/www/html/wordpress
+          state: directory
+          recurse: yes
+          owner: user-data
+          group: user-data
+        # command: chdir=/var/www/html
+
