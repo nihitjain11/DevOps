@@ -1,0 +1,12 @@
+---
+- name: Copy docker-compose file
+  copy: 
+    src: /home/nihit/DevOps/ansible/task/dockerfiles/wp_mysql.yml
+    dest: /home/ubuntu/docker-compose.yml
+    mode: '644'
+
+- name: Docker-Compose Up
+  docker_compose:
+    project_src: /home/ubuntu/
+    state: present
+  register: output

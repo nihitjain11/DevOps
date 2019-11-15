@@ -1,0 +1,7 @@
+---
+  - hosts: myServers
+    become: yes
+    roles:
+      - docker
+      - apps 
+      - jenkins

@@ -27,13 +27,13 @@ services:
 
    app:
       image: tomcat:latest
-      container_name: someshapplication_server
+      container_name: application_server
       ports:
        - "8090:8080"
 
    web: 
       image: nginx:latest
-      container_name: someshwebserver
+      container_name: webserver
       ports: 
        - "8001:80"
 

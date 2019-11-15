@@ -35,6 +35,7 @@
           - php-intl
           - php-zip
           - mysql-server
+          - mysql-client
       - name: Setup MySQL
         login_user: root
         login_password: somewordpress
