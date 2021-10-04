@@ -1,0 +1,12 @@
+bash -x /home/nihit/allyo/terraform.sh checkanmol /home/nihit/allyo/terraform staging 1
+cd terraform/
+/usr/local/bin/terraform init
+/usr/local/bin/terraform plan
+/usr/local/bin/terraform apply --auto-approve
+/usr/local/bin/terraform destroy --auto-approve
+
+cd ~/allyo/tf12/
+
+echo -e "creation started:" `date` >> ~/terr.log; /usr/local/bin/terraform12 apply --auto-approve -parallelism=20; noti "Infrastructure Deployed" "now";echo "creation ended:" `date` >> ~/terr.log
+
+echo -e "destroy started:" `date` >> ~/terr.log; /usr/local/bin/terraform12 destroy --auto-approve -parallelism=20; noti "Infrastructure Destroyed" "now";echo "destroy ended:" `date` "\n" >> ~/terr.log
